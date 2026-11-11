@@ -9,7 +9,9 @@ Perform a real review and attach findings to actual changed code. The HTML rende
 
 ## Shared foundation
 
-Read `./foundation/INSTRUCTIONS.md` and `./foundation/references/contract.md`. Use `./foundation/assets/artifact.html` with artifact kind `review`. Follow applicable repository review instructions and specialist review requirements.
+Load the shared `html-artifact` skill (`html-artifact:html-artifact` for Claude plugin installs, otherwise `html-artifact`) before generating HTML. Read its `references/contract.md` and resolve `assets/artifact.html` relative to that loaded skill's actual directory, never this specialist or a guessed plugin-cache path. If unavailable, stop and request installation/enabling of `html-artifact@html-skills`; do not invent a fallback or install anything automatically.
+
+Use the foundation's `assets/artifact.html` with artifact kind `review`. Follow applicable repository review instructions and specialist review requirements.
 
 ## Inputs
 

@@ -4,153 +4,81 @@
     "name": "liliankasem"
   },
   "metadata": {
-    "description": "Individually installable HTML artifact skills with bundled offline templates.",
-    "version": "0.1.0"
+    "description": "Individually selectable HTML skills sharing one offline HTML artifact foundation.",
+    "version": "0.2.0"
   },
   "plugins": [
-    {
-      "name": "animation-playground",
-      "source": "./plugins/animation-playground",
-      "description": "Build an HTML animation prototype with tunable timing, easing, and transition parameters plus export. Use when the user wants to compare or fine-tune motion interactively before coding it into a product.",
-      "version": "0.1.0"
-    },
     {
       "name": "annotated-code-review",
       "source": "./plugins/annotated-code-review",
       "description": "Render an evidence-backed code review as an HTML diff with line-anchored findings and severity labels. Use when the user specifically wants an annotated HTML PR review or interactive diff review artifact.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "annotation-workbench",
-      "source": "./plugins/annotation-workbench",
-      "description": "Build an HTML interface for source-anchored annotations on documents, transcripts, or diffs with structured export. Use when the user wants to label or comment on a specific source without modifying it.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "artifact-inventory",
-      "source": "./plugins/artifact-inventory",
-      "description": "Catalog and categorize an authorized collection of generated artifacts in a searchable HTML inventory. Use when the user wants to discover recurring artifact types, inspect coverage, or browse existing HTML outputs.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "code-path-explainer",
       "source": "./plugins/code-path-explainer",
       "description": "Trace a concrete behavior through source code and produce an annotated HTML execution-path explainer. Use when the user wants to understand how a specific code path works, with real snippets and source-linked flow diagrams.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "component-gallery",
-      "source": "./plugins/component-gallery",
-      "description": "Create a browsable HTML catalog of component variants and states tied to their source definitions. Use when the user wants a visual component library, state matrix, or design-system coverage gallery.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "component-tuner",
-      "source": "./plugins/component-tuner",
-      "description": "Build an offline HTML playground for tuning a component's appearance and behavior with parameter export. Use when the user wants sliders, toggles, or selectors to adjust a component before implementation.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "constrained-config-editor",
-      "source": "./plugins/constrained-config-editor",
-      "description": "Build an HTML form for editing structured configuration with schema validation, dependency checks, and changed-value export. Use when the user wants a safe visual editor for feature flags or JSON/YAML configuration.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "dataset-curator",
-      "source": "./plugins/dataset-curator",
-      "description": "Build an offline HTML interface for approving, rejecting, tagging, and selecting dataset examples with auditable export. Use when the user wants to curate a concrete dataset through a purpose-built review UI.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "design-explorer",
-      "source": "./plugins/design-explorer",
-      "description": "Create an HTML gallery of distinct visual directions for one feature. Use when the user wants side-by-side design alternatives, layout explorations, or a visual decision page rather than a single polished design.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "design-token-preview",
-      "source": "./plugins/design-token-preview",
-      "description": "Create an HTML reference that renders real design tokens as color swatches, typography, spacing, and component examples. Use when the user wants to inspect or compare a design system visually rather than read raw token files.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "feature-brief",
       "source": "./plugins/feature-brief",
       "description": "Create a concise HTML overview of a feature's purpose, behavior, architecture, and limitations. Use when the user wants a source-backed feature summary for onboarding, handoff, or stakeholder understanding.",
-      "version": "0.1.0"
+      "version": "0.2.0"
+    },
+    {
+      "name": "handoff-guide",
+      "source": "./plugins/handoff-guide",
+      "description": "Write a self-contained HTML handoff or repository overview guide explaining what a project does, why it is built that way, and how to operate and diagnose it. Use when handing a project to another team, onboarding owners, or requesting a project overview, internals guide, ownership document, or handoff doc.",
+      "version": "0.2.0"
     },
     {
       "name": "html-artifact",
       "source": "./plugins/html-artifact",
       "description": "Create self-contained, accessible HTML artifacts for plans, code reviews, explainers, reports, prototypes, and purpose-built editing interfaces. Use when the user requests an HTML artifact or when a specialized skill explicitly delegates its presentation and export layer to this foundation.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "implementation-explorer",
       "source": "./plugins/implementation-explorer",
       "description": "Create an HTML comparison of implementation approaches grounded in the actual codebase. Use when the user wants alternative technical approaches, tradeoffs, or an HTML decision aid before choosing an implementation.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "incident-report",
-      "source": "./plugins/incident-report",
-      "description": "Assemble incident evidence into a blameless HTML report with impact, timeline, contributing factors, and follow-up actions. Use when the user requests an HTML incident review or visual postmortem.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "pr-walkthrough",
       "source": "./plugins/pr-walkthrough",
       "description": "Create a source-linked HTML companion explaining a pull request to reviewers. Use when the user wants an HTML PR overview, reviewer guide, or visual walkthrough of a change, rather than a defect review.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "prioritization-board",
-      "source": "./plugins/prioritization-board",
-      "description": "Build an HTML board for reordering and bucketing tickets, test cases, or feedback with structured export. Use when the user wants to prioritize a concrete collection interactively without changing the source tracker.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "prompt-template-lab",
-      "source": "./plugins/prompt-template-lab",
-      "description": "Create an HTML prompt or text-template editor with highlighted variables, live sample previews, and export. Use when the user wants to tune a prompt or template against concrete examples without live model calls.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "research-synthesizer",
       "source": "./plugins/research-synthesizer",
       "description": "Synthesize authorized documents, code, history, and web or connected-service evidence into a source-linked HTML research report. Use when the user wants a readable HTML synthesis across multiple sources.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "technical-diagrammer",
       "source": "./plugins/technical-diagrammer",
       "description": "Produce accessible SVG technical diagrams embedded in a self-contained HTML artifact. Use when the user wants architecture, sequence, workflow, or state diagrams grounded in supplied evidence.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "technical-explainer",
       "source": "./plugins/technical-explainer",
       "description": "Create an HTML learning artifact that teaches a technical concept through diagrams, worked examples, and gotchas. Use when the user wants an interactive explanation or HTML lesson, rather than a source-code trace alone.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "visual-implementation-plan",
       "source": "./plugins/visual-implementation-plan",
       "description": "Turn an agreed technical approach into an evidence-linked HTML implementation plan with interfaces, data flow, dependencies, and acceptance criteria. Use when the user requests a visual plan or an HTML handoff for implementation.",
-      "version": "0.1.0"
-    },
-    {
-      "name": "visual-parameter-picker",
-      "source": "./plugins/visual-parameter-picker",
-      "description": "Build a focused HTML picker for values difficult to express in prose, such as colors, easing curves, crop regions, cron schedules, or regexes. Use when the user wants domain-specific preview and exact-value export.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     },
     {
       "name": "weekly-status-report",
       "source": "./plugins/weekly-status-report",
       "description": "Create an evidence-linked HTML status report for an explicit reporting period. Use when the user wants a weekly HTML update synthesized from authorized issues, PRs, commits, documents, or supplied notes.",
-      "version": "0.1.0"
+      "version": "0.2.0"
     }
   ]
 }

@@ -1,9 +1,0 @@
-{
-  "name": "component-gallery",
-  "version": "0.1.0",
-  "description": "Create a browsable HTML catalog of component variants and states tied to their source definitions. Use when the user wants a visual component library, state matrix, or design-system coverage gallery.",
-  "author": {
-    "name": "liliankasem"
-  },
-  "repository": "https://github.com/liliankasem/html-skills"
-}

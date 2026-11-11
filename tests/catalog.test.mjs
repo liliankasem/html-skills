@@ -7,26 +7,29 @@ import { test } from "node:test";
 const repo = fileURLToPath(new URL("../", import.meta.url));
 const root = resolve(repo, "skills");
 const expected = [
-  "implementation-explorer", "design-explorer", "visual-implementation-plan",
+  "implementation-explorer", "visual-implementation-plan",
   "pr-walkthrough", "annotated-code-review", "code-path-explainer",
-  "design-token-preview", "component-tuner", "component-gallery", "animation-playground",
   "research-synthesizer", "feature-brief", "technical-explainer", "weekly-status-report",
-  "incident-report", "technical-diagrammer", "prioritization-board",
-  "constrained-config-editor", "prompt-template-lab", "dataset-curator",
-  "annotation-workbench", "visual-parameter-picker", "artifact-inventory"
+  "technical-diagrammer", "handoff-guide"
 ];
-const read = name => readFileSync(resolve(root, name, "SKILL.md"), "utf8");
+const deferred = ["design-explorer", "design-token-preview", "component-tuner", "component-gallery", "animation-playground", "visual-parameter-picker"];
+const removed = ["incident-report", "prioritization-board", "constrained-config-editor", "prompt-template-lab", "dataset-curator", "annotation-workbench", "artifact-inventory"];
+const directory = name => resolve(repo, deferred.includes(name) ? "ux-html-skills" : "skills", name);
+const read = name => readFileSync(resolve(directory(name), "SKILL.md"), "utf8");
 const readme = readFileSync(resolve(repo, "README.md"), "utf8");
 const discovered = readdirSync(root, { withFileTypes: true })
   .filter(entry => entry.isDirectory() && existsSync(resolve(root, entry.name, "SKILL.md")))
   .map(entry => entry.name);
 
-test("bundle includes exactly the 23 proposed specialists and shared foundation", () => {
-  assert.equal(expected.length, 23);
+test("catalog includes 11 active specialists, shared foundation, and six deferred UX skills", () => {
+  assert.equal(expected.length, 11);
+  assert.equal(deferred.length, 6);
   assert.deepEqual(discovered.sort(), [...expected, "html-artifact"].sort());
+  assert.deepEqual(readdirSync(resolve(repo, "ux-html-skills")).sort(), [...deferred].sort());
+  assert.ok(!existsSync(resolve(repo, "ui")), "Old deferred directory must be removed");
 });
 
-for (const name of [...expected, "html-artifact"]) {
+for (const name of [...expected, ...deferred, "html-artifact"]) {
   test(`${name} has discoverable, bounded skill metadata`, () => {
     const text = read(name);
     const match = text.match(/^---\nname: ([a-z0-9-]+)\ndescription: ([^\n]+)\n---\n/);
@@ -40,17 +43,17 @@ for (const name of [...expected, "html-artifact"]) {
   });
 }
 
-for (const name of expected) {
+for (const name of [...expected, ...deferred]) {
   test(`${name} composes the actual foundation and defines a complete workflow`, () => {
     const text = read(name);
-    for (const path of [
-      "../html-artifact/SKILL.md",
-      "../html-artifact/references/contract.md",
-      "../html-artifact/assets/artifact.html"
-    ]) {
-      assert.ok(text.includes(`\`${path}\``), `Missing dependency: ${path}`);
-      assert.ok(existsSync(resolve(root, name, path)), `Unresolvable dependency: ${path}`);
-    }
+    assert.match(text, /Load the shared `html-artifact` skill/);
+    assert.match(text, /`html-artifact:html-artifact` for Claude plugin installs, otherwise `html-artifact`/);
+    assert.match(text, /relative to that loaded skill's actual directory/);
+    assert.match(text, /If unavailable, stop and request installation\/enabling/);
+    assert.match(text, /do not invent a fallback or install anything automatically/);
+    assert.doesNotMatch(text, /\.\.\/html-artifact\/|\.\/foundation\/|\.\.\/skills\/html-artifact\//);
+    assert.ok(text.includes("`references/contract.md`"));
+    assert.ok(text.includes("`assets/artifact.html`"));
     for (const heading of ["Shared foundation", "Inputs", "Workflow", "HTML output", "Acceptance checks", "Example request"]) {
       assert.ok(text.includes(`## ${heading}\n`), `Missing section: ${heading}`);
     }
@@ -64,19 +67,34 @@ test("README catalogs every skill once and all local links resolve", () => {
   for (const name of [...expected, "html-artifact"]) {
     assert.equal(readme.split(`](skills/${name}/SKILL.md)`).length - 1, 1, `Catalog entry: ${name}`);
   }
+  for (const name of deferred) {
+    assert.equal(readme.split(`](ux-html-skills/${name}/SKILL.md)`).length - 1, 1, `Deferred entry: ${name}`);
+  }
   for (const match of readme.matchAll(/\]\(([^)]+)\)/g)) {
     if (/^https:\/\//.test(match[1])) continue;
     assert.ok(existsSync(resolve(repo, match[1])), `Broken link: ${match[1]}`);
   }
   assert.match(readme, /does not register or install skills automatically/);
-  assert.match(readme, /not 23 prebuilt applications/);
+  assert.match(readme, /not 11 prebuilt applications/);
+});
+
+test("deferred skills are preserved outside both active catalogs and generated plugins", () => {
+  for (const catalog of [".claude-plugin/marketplace.json", ".github/plugin/marketplace.json"]) {
+    const names = JSON.parse(readFileSync(resolve(repo, catalog), "utf8")).plugins.map(plugin => plugin.name);
+    for (const name of [...deferred, ...removed]) {
+      assert.ok(!names.includes(name), `Inactive skill still cataloged: ${name}`);
+      assert.ok(!existsSync(resolve(repo, "plugins", name)), `Inactive plugin still generated: ${name}`);
+      assert.ok(!existsSync(resolve(root, name)), `Inactive skill still in active source: ${name}`);
+    }
+    for (const name of removed) {
+      assert.ok(!existsSync(resolve(repo, "ux-html-skills", name)), `Deleted skill preserved unexpectedly: ${name}`);
+    }
+  }
 });
 
 test("editing skills require explicit export and acceptance checks", () => {
   for (const name of [
-    "component-tuner", "animation-playground", "prioritization-board",
-    "constrained-config-editor", "prompt-template-lab", "dataset-curator",
-    "annotation-workbench", "visual-parameter-picker"
+    "component-tuner", "animation-playground", "visual-parameter-picker"
   ]) {
     const text = read(name);
     assert.match(text, /export/i);
@@ -90,12 +108,8 @@ test("domain contracts cover high-risk semantic edge cases", () => {
   const contracts = {
     "annotated-code-review": [/actual escaped diff/, /revision side/, /failure path/],
     "weekly-status-report": [/start-inclusive\/end-exclusive/, /Deduplicate/, /open PR with a shipped feature/],
-    "constrained-config-editor": [/absent, null, false, zero/, /prototype-pollution/, /add\/replace\/remove/],
-    "prompt-template-lab": [/non-recursive substitution/, /token counts as estimates/, /never executable markup/],
-    "dataset-curator": [/approve\/reject\/unreviewed/, /spreadsheet-formula injection/, /audit manifest/],
-    "annotation-workbench": [/revision or content digest/, /offset units/, /stale-source detection/],
     "visual-parameter-picker": [/dialect, timezone/, /terminable worker/, /DST behavior/],
-    "artifact-inventory": [/Do not run scripts/, /symlinks outside scope/, /content digests/]
+    "handoff-guide": [/authority matrix/, /Docs vs code discrepancies/, /fake data only/, /Remove the starter's editor/, /no JavaScript is needed/i]
   };
   for (const [name, patterns] of Object.entries(contracts)) {
     for (const pattern of patterns) assert.match(read(name), pattern, `${name}: ${pattern}`);

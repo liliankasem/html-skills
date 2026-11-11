@@ -31,6 +31,8 @@ const names = readdirSync(skillsRoot, { withFileTypes: true }).map(entry => {
   return entry.name;
 }).sort();
 
+if (!names.includes("html-artifact")) throw new Error("Missing shared html-artifact foundation");
+
 for (const name of names) {
   const skillRoot = join(skillsRoot, name);
   const instructions = readFileSync(join(skillRoot, "SKILL.md"), "utf8");
@@ -48,25 +50,14 @@ for (const name of names) {
     $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
     ...manifest
   }));
-  generated.set(`${pluginRoot}/.claude-plugin/plugin.json`, json(manifest));
+  generated.set(`${pluginRoot}/.claude-plugin/plugin.json`, json({
+    ...manifest,
+    ...(name === "html-artifact" ? {} : { dependencies: ["html-artifact"] })
+  }));
 
   for (const path of files(skillRoot)) {
     const destination = `${pluginRoot}/skills/${name}/${relative(skillRoot, path)}`;
-    const content = readFileSync(path);
-    generated.set(destination, path === join(skillRoot, "SKILL.md") && name !== "html-artifact"
-      ? Buffer.from(content.toString("utf8")
-        .replaceAll("../html-artifact/SKILL.md", "./foundation/INSTRUCTIONS.md")
-        .replaceAll("../html-artifact/", "./foundation/"))
-      : content);
-  }
-  if (name !== "html-artifact") {
-    const foundationRoot = join(skillsRoot, "html-artifact");
-    for (const path of files(foundationRoot)) {
-      const destination = relative(foundationRoot, path);
-      generated.set(`${pluginRoot}/skills/${name}/foundation/${
-        destination === "SKILL.md" ? "INSTRUCTIONS.md" : destination
-      }`, readFileSync(path));
-    }
+    generated.set(destination, readFileSync(path));
   }
 }
 
@@ -113,4 +104,4 @@ for (const path of existing) {
 if (stale.length) {
   throw new Error(`Generated files differ (run npm run build; remove obsolete generated files explicitly):\n${stale.join("\n")}`);
 }
-console.log(`${check ? "Verified" : "Built"} ${names.length} self-contained plugins and both marketplace catalogs.`);
+console.log(`${check ? "Verified" : "Built"} ${names.length} plugins with one shared foundation and both marketplace catalogs.`);

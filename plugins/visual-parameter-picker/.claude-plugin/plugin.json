@@ -1,9 +1,0 @@
-{
-  "name": "visual-parameter-picker",
-  "version": "0.1.0",
-  "description": "Build a focused HTML picker for values difficult to express in prose, such as colors, easing curves, crop regions, cron schedules, or regexes. Use when the user wants domain-specific preview and exact-value export.",
-  "author": {
-    "name": "liliankasem"
-  },
-  "repository": "https://github.com/liliankasem/html-skills"
-}

@@ -1,9 +1,12 @@
 {
   "name": "technical-explainer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Create an HTML learning artifact that teaches a technical concept through diagrams, worked examples, and gotchas. Use when the user wants an interactive explanation or HTML lesson, rather than a source-code trace alone.",
   "author": {
     "name": "liliankasem"
   },
-  "repository": "https://github.com/liliankasem/html-skills"
+  "repository": "https://github.com/liliankasem/html-skills",
+  "dependencies": [
+    "html-artifact"
+  ]
 }

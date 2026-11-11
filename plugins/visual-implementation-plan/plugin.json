@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "visual-implementation-plan",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Turn an agreed technical approach into an evidence-linked HTML implementation plan with interfaces, data flow, dependencies, and acceptance criteria. Use when the user requests a visual plan or an HTML handoff for implementation.",
   "author": {
     "name": "liliankasem"

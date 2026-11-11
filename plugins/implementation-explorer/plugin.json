@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "implementation-explorer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Create an HTML comparison of implementation approaches grounded in the actual codebase. Use when the user wants alternative technical approaches, tradeoffs, or an HTML decision aid before choosing an implementation.",
   "author": {
     "name": "liliankasem"

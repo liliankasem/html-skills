@@ -27,8 +27,8 @@ test("generation detects and repairs drift without silently removing obsolete pa
 
     const changed = [
       ".github/plugin/marketplace.json",
-      "plugins/component-tuner/.claude-plugin/plugin.json",
-      "plugins/component-tuner/skills/component-tuner/foundation/assets/artifact.html"
+      "plugins/handoff-guide/.claude-plugin/plugin.json",
+      "plugins/html-artifact/skills/html-artifact/assets/artifact.html"
     ];
     const originals = changed.map(path => readFileSync(join(temporary, path)));
     for (const path of changed) writeFileSync(join(temporary, path), "stale");
@@ -42,12 +42,17 @@ test("generation detects and repairs drift without silently removing obsolete pa
     assert.equal(run("--check").status, 0);
     changed.forEach((path, index) => assert.deepEqual(readFileSync(join(temporary, path)), originals[index]));
 
-    const obsolete = "plugins/component-tuner/obsolete.txt";
+    const obsolete = "plugins/handoff-guide/obsolete.txt";
     writeFileSync(join(temporary, obsolete), "keep until explicitly removed");
     const rebuild = run();
     assert.notEqual(rebuild.status, 0);
     assert.ok(rebuild.stderr.includes(obsolete));
     assert.equal(readFileSync(join(temporary, obsolete), "utf8"), "keep until explicitly removed");
+
+    rmSync(join(temporary, "skills/html-artifact"), { recursive: true });
+    const missing = run();
+    assert.notEqual(missing.status, 0);
+    assert.match(missing.stderr, /Missing shared html-artifact foundation/);
   } finally {
     rmSync(temporary, { recursive: true, force: true });
   }

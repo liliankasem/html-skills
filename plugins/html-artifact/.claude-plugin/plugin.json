@@ -1,6 +1,6 @@
 {
   "name": "html-artifact",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Create self-contained, accessible HTML artifacts for plans, code reviews, explainers, reports, prototypes, and purpose-built editing interfaces. Use when the user requests an HTML artifact or when a specialized skill explicitly delegates its presentation and export layer to this foundation.",
   "author": {
     "name": "liliankasem"

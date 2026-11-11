@@ -40,8 +40,10 @@ for (const name of sourceNames) {
   test(`${name} has separate compatible manifests without component-path overrides`, () => {
     const plugin = `plugins/${name}`;
     const { $schema, ...portable } = json(`${plugin}/plugin.json`);
+    const { dependencies, ...claude } = json(`${plugin}/.claude-plugin/plugin.json`);
     assert.equal($schema, "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json");
-    assert.deepEqual(portable, json(`${plugin}/.claude-plugin/plugin.json`));
+    assert.deepEqual(portable, claude);
+    assert.deepEqual(dependencies, name === "html-artifact" ? undefined : ["html-artifact"]);
     assert.deepEqual(Object.keys(portable).sort(), ["author", "description", "name", "repository", "version"]);
     assert.match(portable.name, /^(?!.*(?:--|\.\.))[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/);
     assert.ok(portable.name.length <= 64);
@@ -54,7 +56,7 @@ for (const name of sourceNames) {
     assert.deepEqual(readdirSync(resolve(root, plugin, "skills")), [name]);
   });
 
-  test(`${name} works when copied alone, with original instructions and local resources`, () => {
+  test(`${name} ships original instructions and uses only the separately installed foundation`, () => {
     const temporary = mkdtempSync(join(tmpdir(), "html-skills-package-"));
     try {
       const installed = join(temporary, name);
@@ -62,27 +64,28 @@ for (const name of sourceNames) {
       const skill = join(installed, "skills", name);
       const instructions = readFileSync(join(skill, "SKILL.md"), "utf8");
       const source = read(`skills/${name}/SKILL.md`);
-      assert.equal(instructions, name === "html-artifact" ? source : source
-        .replaceAll("../html-artifact/SKILL.md", "./foundation/INSTRUCTIONS.md")
-        .replaceAll("../html-artifact/", "./foundation/"));
-      assert.doesNotMatch(instructions, /\.\.\/html-artifact\//);
-      const foundation = name === "html-artifact" ? skill : join(skill, "foundation");
-      for (const path of ["SKILL.md", "assets/artifact.html", "references/contract.md", "tests/artifact.test.mjs"]) {
-        const installedPath = join(foundation, path === "SKILL.md" && name !== "html-artifact" ? "INSTRUCTIONS.md" : path);
-        assert.deepEqual(readFileSync(installedPath), readFileSync(resolve(root, "skills/html-artifact", path)));
-        contained(installed, installedPath);
-      }
+      assert.equal(instructions, source);
+      assert.doesNotMatch(instructions, /\.\.\/html-artifact\/|\.\/foundation\//);
+      let foundation = skill;
       if (name !== "html-artifact") {
-        assert.ok(!existsSync(join(foundation, "SKILL.md")), "Bundled foundation must not register another skill");
-        for (const match of instructions.matchAll(/`(\.\/foundation\/[^`]+)`/g)) {
-          contained(installed, resolve(skill, match[1]));
-        }
+        assert.deepEqual(readdirSync(skill), ["SKILL.md"], "Specialists must not duplicate shared resources");
+        assert.match(instructions, /html-artifact:html-artifact/);
+        assert.match(instructions, /If unavailable, stop and request installation\/enabling/);
+        assert.ok(!existsSync(join(temporary, "html-artifact")), "Foundation must not be copied implicitly");
+        const sharedPlugin = join(temporary, "html-artifact");
+        cpSync(resolve(root, "plugins/html-artifact"), sharedPlugin, { recursive: true });
+        foundation = join(sharedPlugin, "skills/html-artifact");
       }
-      for (const match of readFileSync(join(foundation, name === "html-artifact" ? "SKILL.md" : "INSTRUCTIONS.md"), "utf8")
+      for (const path of ["SKILL.md", "assets/artifact.html", "references/contract.md", "tests/artifact.test.mjs"]) {
+        const installedPath = join(foundation, path);
+        assert.deepEqual(readFileSync(installedPath), readFileSync(resolve(root, "skills/html-artifact", path)));
+        contained(join(temporary, "html-artifact"), installedPath);
+      }
+      for (const match of readFileSync(join(foundation, "SKILL.md"), "utf8")
         .matchAll(/`((?:assets|references|tests)\/[^`]+)`/g)) {
         const target = resolve(foundation, match[1]);
         assert.ok(existsSync(target));
-        contained(installed, target);
+        contained(join(temporary, "html-artifact"), target);
       }
     } finally {
       rmSync(temporary, { recursive: true, force: true });

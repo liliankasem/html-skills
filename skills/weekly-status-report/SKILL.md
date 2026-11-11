@@ -9,7 +9,9 @@ Report outcomes and decisions, not a misleading activity count.
 
 ## Shared foundation
 
-Read `../html-artifact/SKILL.md` and `../html-artifact/references/contract.md`. Use `../html-artifact/assets/artifact.html` with artifact kind `report`. Keep the report read-only unless editable commentary is requested.
+Load the shared `html-artifact` skill (`html-artifact:html-artifact` for Claude plugin installs, otherwise `html-artifact`) before generating HTML. Read its `references/contract.md` and resolve `assets/artifact.html` relative to that loaded skill's actual directory, never this specialist or a guessed plugin-cache path. If unavailable, stop and request installation/enabling of `html-artifact@html-skills`; do not invent a fallback or install anything automatically.
+
+Use the foundation's `assets/artifact.html` with artifact kind `report`. Keep the report read-only unless editable commentary is requested.
 
 ## Inputs
 

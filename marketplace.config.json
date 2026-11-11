@@ -3,7 +3,7 @@
   "owner": {
     "name": "liliankasem"
   },
-  "version": "0.1.0",
+  "version": "0.2.0",
   "repository": "https://github.com/liliankasem/html-skills",
-  "description": "Individually installable HTML artifact skills with bundled offline templates."
+  "description": "Individually selectable HTML skills sharing one offline HTML artifact foundation."
 }

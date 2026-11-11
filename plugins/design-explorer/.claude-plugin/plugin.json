@@ -1,9 +1,0 @@
-{
-  "name": "design-explorer",
-  "version": "0.1.0",
-  "description": "Create an HTML gallery of distinct visual directions for one feature. Use when the user wants side-by-side design alternatives, layout explorations, or a visual decision page rather than a single polished design.",
-  "author": {
-    "name": "liliankasem"
-  },
-  "repository": "https://github.com/liliankasem/html-skills"
-}

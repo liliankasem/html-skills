@@ -9,7 +9,9 @@ Help a reviewer understand why a change exists and where to focus.
 
 ## Shared foundation
 
-Read `../html-artifact/SKILL.md` and `../html-artifact/references/contract.md`. Use `../html-artifact/assets/artifact.html` with artifact kind `explainer`. Remove the sample editor unless reviewer notes are explicitly requested.
+Load the shared `html-artifact` skill (`html-artifact:html-artifact` for Claude plugin installs, otherwise `html-artifact`) before generating HTML. Read its `references/contract.md` and resolve `assets/artifact.html` relative to that loaded skill's actual directory, never this specialist or a guessed plugin-cache path. If unavailable, stop and request installation/enabling of `html-artifact@html-skills`; do not invent a fallback or install anything automatically.
+
+Use the foundation's `assets/artifact.html` with artifact kind `explainer`. Remove the sample editor unless reviewer notes are explicitly requested.
 
 ## Inputs
 

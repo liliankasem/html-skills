@@ -9,7 +9,9 @@ Compare credible ways to solve the same engineering problem without prematurely 
 
 ## Shared foundation
 
-Read `../html-artifact/SKILL.md` and `../html-artifact/references/contract.md`. Use `../html-artifact/assets/artifact.html` as the presentation starter. Supply a brief with artifact kind `plan`; replace the example editor and remove controls unless selection or weighting helps.
+Load the shared `html-artifact` skill (`html-artifact:html-artifact` for Claude plugin installs, otherwise `html-artifact`) before generating HTML. Read its `references/contract.md` and resolve `assets/artifact.html` relative to that loaded skill's actual directory, never this specialist or a guessed plugin-cache path. If unavailable, stop and request installation/enabling of `html-artifact@html-skills`; do not invent a fallback or install anything automatically.
+
+Use the foundation's `assets/artifact.html` as the presentation starter. Supply a brief with artifact kind `plan`; replace the example editor and remove controls unless selection or weighting helps.
 
 ## Inputs
 

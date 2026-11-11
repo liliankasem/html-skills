@@ -9,7 +9,9 @@ Answer a bounded research question while preserving provenance, disagreement, an
 
 ## Shared foundation
 
-Read `./foundation/INSTRUCTIONS.md` and `./foundation/references/contract.md`. Adapt `./foundation/assets/artifact.html` with artifact kind `report`. Remove the example editor unless evidence annotation is requested.
+Load the shared `html-artifact` skill (`html-artifact:html-artifact` for Claude plugin installs, otherwise `html-artifact`) before generating HTML. Read its `references/contract.md` and resolve `assets/artifact.html` relative to that loaded skill's actual directory, never this specialist or a guessed plugin-cache path. If unavailable, stop and request installation/enabling of `html-artifact@html-skills`; do not invent a fallback or install anything automatically.
+
+Adapt the foundation's `assets/artifact.html` with artifact kind `report`. Remove the example editor unless evidence annotation is requested.
 
 ## Inputs
 

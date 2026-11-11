@@ -80,6 +80,12 @@ test("starter has linked landmarks, labels, no duplicate IDs, and no remote depe
   for (const match of html.matchAll(/(?:href="#|for=")([^"]+)"/g)) {
     assert.ok(ids.includes(match[1]), `Missing target: ${match[1]}`);
   }
+  for (const match of html.matchAll(/aria-(?:labelledby|describedby)="([^"]+)"/g)) {
+    for (const id of match[1].split(/\s+/)) assert.ok(ids.includes(id), `Missing accessible text: ${id}`);
+  }
+  for (const match of html.matchAll(/url\(#([^)]+)\)/g)) {
+    assert.ok(ids.includes(match[1]), `Missing SVG resource: ${match[1]}`);
+  }
   assert.equal((html.match(/<h1>/g) || []).length, 1);
   assert.match(html, /<html lang="en">/);
   assert.match(html, /<main id="main" tabindex="-1">/);
@@ -90,4 +96,45 @@ test("starter has linked landmarks, labels, no duplicate IDs, and no remote depe
   assert.doesNotMatch(html, /\b(?:innerHTML|eval|localStorage|fetch)\s*[=(.]/);
   assert.equal(scripts.length, 2);
   scripts.forEach(script => assert.doesNotThrow(() => new vm.Script(script[1])));
+});
+
+test("documentation diagrams have named, keyboard-scrollable regions and text alternatives", () => {
+  const diagrams = [...html.matchAll(/<svg\b([^>]*)>([\s\S]*?)<\/svg>/g)];
+  assert.ok(diagrams.length > 0);
+  for (const [, attributes, body] of diagrams) {
+    assert.match(attributes, /role="img"/);
+    assert.match(attributes, /viewBox="[^"]+"/);
+    assert.match(attributes, /aria-labelledby="[^"]+"/);
+    assert.match(body, /^\s*<title id="[^"]+">[^<]+<\/title>\s*<desc id="[^"]+">[^<]+<\/desc>/);
+  }
+  assert.match(html, /<div class="svgw" role="region" aria-label="[^"]+" tabindex="0">/);
+  assert.match(html, /Illustrative workflow only, not a description of a real repository/);
+});
+
+test("documentation palette keeps text, controls, and focus above required contrast", () => {
+  const palette = Object.fromEntries([...html.matchAll(/--([a-z0-9]+):\s*(#[a-f0-9]{6})/gi)]
+    .map(([, name, color]) => [name, color]));
+  const luminance = color => {
+    const channels = color.slice(1).match(/../g).map(value => {
+      const channel = parseInt(value, 16) / 255;
+      return channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4;
+    });
+    return channels[0] * .2126 + channels[1] * .7152 + channels[2] * .0722;
+  };
+  const contrast = (foreground, background) => {
+    const values = [luminance(foreground), luminance(background)].sort((a, b) => b - a);
+    return (values[0] + .05) / (values[1] + .05);
+  };
+  for (const foreground of ["fg", "mut", "acc", "acc2", "ok", "warn"]) {
+    for (const background of ["bg", "card", "code"]) {
+      assert.ok(contrast(palette[foreground], palette[background]) >= 4.5,
+        `Text contrast too low: ${foreground} on ${background}`);
+    }
+  }
+  for (const foreground of ["control", "acc2"]) {
+    for (const background of ["bg", "card"]) {
+      assert.ok(contrast(palette[foreground], palette[background]) >= 3,
+        `Control or focus contrast too low: ${foreground} on ${background}`);
+    }
+  }
 });

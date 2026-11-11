@@ -1,9 +1,0 @@
-{
-  "name": "design-token-preview",
-  "version": "0.1.0",
-  "description": "Create an HTML reference that renders real design tokens as color swatches, typography, spacing, and component examples. Use when the user wants to inspect or compare a design system visually rather than read raw token files.",
-  "author": {
-    "name": "liliankasem"
-  },
-  "repository": "https://github.com/liliankasem/html-skills"
-}

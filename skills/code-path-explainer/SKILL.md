@@ -9,7 +9,9 @@ Explain what the code actually does from an entry point to its observable outcom
 
 ## Shared foundation
 
-Read `../html-artifact/SKILL.md` and `../html-artifact/references/contract.md`. Adapt `../html-artifact/assets/artifact.html` with artifact kind `explainer`. This is a read-only explanation unless the user asks for an interactive model.
+Load the shared `html-artifact` skill (`html-artifact:html-artifact` for Claude plugin installs, otherwise `html-artifact`) before generating HTML. Read its `references/contract.md` and resolve `assets/artifact.html` relative to that loaded skill's actual directory, never this specialist or a guessed plugin-cache path. If unavailable, stop and request installation/enabling of `html-artifact@html-skills`; do not invent a fallback or install anything automatically.
+
+Adapt the foundation's `assets/artifact.html` with artifact kind `explainer`. This is a read-only explanation unless the user asks for an interactive model.
 
 ## Inputs
 

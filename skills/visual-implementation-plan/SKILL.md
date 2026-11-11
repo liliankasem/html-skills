@@ -9,7 +9,9 @@ Produce an implementable plan, not a document that merely describes a desirable 
 
 ## Shared foundation
 
-Read `../html-artifact/SKILL.md` and `../html-artifact/references/contract.md`. Customize `../html-artifact/assets/artifact.html` with artifact kind `plan`. A read-only plan normally does not need the sample editor.
+Load the shared `html-artifact` skill (`html-artifact:html-artifact` for Claude plugin installs, otherwise `html-artifact`) before generating HTML. Read its `references/contract.md` and resolve `assets/artifact.html` relative to that loaded skill's actual directory, never this specialist or a guessed plugin-cache path. If unavailable, stop and request installation/enabling of `html-artifact@html-skills`; do not invent a fallback or install anything automatically.
+
+Customize the foundation's `assets/artifact.html` with artifact kind `plan`. A read-only plan normally does not need the sample editor.
 
 ## Inputs
 

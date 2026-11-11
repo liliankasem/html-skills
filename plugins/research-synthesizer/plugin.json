@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "research-synthesizer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Synthesize authorized documents, code, history, and web or connected-service evidence into a source-linked HTML research report. Use when the user wants a readable HTML synthesis across multiple sources.",
   "author": {
     "name": "liliankasem"

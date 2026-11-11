@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "annotated-code-review",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Render an evidence-backed code review as an HTML diff with line-anchored findings and severity labels. Use when the user specifically wants an annotated HTML PR review or interactive diff review artifact.",
   "author": {
     "name": "liliankasem"

@@ -1,9 +1,0 @@
-{
-  "name": "incident-report",
-  "version": "0.1.0",
-  "description": "Assemble incident evidence into a blameless HTML report with impact, timeline, contributing factors, and follow-up actions. Use when the user requests an HTML incident review or visual postmortem.",
-  "author": {
-    "name": "liliankasem"
-  },
-  "repository": "https://github.com/liliankasem/html-skills"
-}
