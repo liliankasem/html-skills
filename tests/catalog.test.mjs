@@ -10,10 +10,10 @@ const expected = [
   "implementation-explorer", "visual-implementation-plan",
   "pr-walkthrough", "annotated-code-review", "code-path-explainer",
   "research-synthesizer", "feature-brief", "technical-explainer", "weekly-status-report",
-  "technical-diagrammer", "handoff-guide"
+  "technical-diagrammer", "repository-guide"
 ];
 const deferred = ["design-explorer", "design-token-preview", "component-tuner", "component-gallery", "animation-playground", "visual-parameter-picker"];
-const removed = ["incident-report", "prioritization-board", "constrained-config-editor", "prompt-template-lab", "dataset-curator", "annotation-workbench", "artifact-inventory"];
+const removed = ["incident-report", "prioritization-board", "constrained-config-editor", "prompt-template-lab", "dataset-curator", "annotation-workbench", "artifact-inventory", "handoff-guide"];
 const deferredRoot = resolve(repo, "experimental", "ux-html-skills");
 const directory = name => resolve(deferred.includes(name) ? deferredRoot : root, name);
 const read = name => readFileSync(resolve(directory(name), "SKILL.md"), "utf8");
@@ -111,7 +111,7 @@ test("domain contracts cover high-risk semantic edge cases", () => {
     "annotated-code-review": [/actual escaped diff/, /revision side/, /failure path/],
     "weekly-status-report": [/start-inclusive\/end-exclusive/, /Deduplicate/, /open PR with a shipped feature/],
     "visual-parameter-picker": [/dialect, timezone/, /terminable worker/, /DST behavior/],
-    "handoff-guide": [/authority matrix/, /Docs vs code discrepancies/, /fake data only/, /Remove the starter's editor/, /no JavaScript is needed/i]
+    "repository-guide": [/authority matrix/, /Docs vs code discrepancies/, /fake data only/, /Remove the starter's editor/, /no JavaScript is needed/i]
   };
   for (const [name, patterns] of Object.entries(contracts)) {
     for (const pattern of patterns) assert.match(read(name), pattern, `${name}: ${pattern}`);

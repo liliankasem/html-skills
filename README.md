@@ -18,12 +18,12 @@ After publication, run in your shell:
 
 ```sh
 claude plugin marketplace add liliankasem/html-skills
-claude plugin install handoff-guide@html-skills
+claude plugin install repository-guide@html-skills
 ```
 
 Specialists declare `"dependencies": ["html-artifact"]` in their Claude manifest. Claude Code versions supporting plugin dependencies install and enable the foundation alongside the specialist, reusing it for later specialists. On older versions without dependency support, install `html-artifact@html-skills` explicitly as well, at the same scope, or upgrade Claude Code. Do not rely on an older client's successful manifest validation to prove automatic dependency installation.
 
-In a new Claude Code session, invoke `/handoff-guide:handoff-guide` with your repository, audience, and output path. Each plugin's name is its skill name; replace `handoff-guide` in both parts to use another catalog entry.
+In a new Claude Code session, invoke `/repository-guide:repository-guide` with your repository, audience, and output path. Each plugin's name is its skill name; replace `repository-guide` in both parts to use another catalog entry.
 
 ### GitHub Copilot CLI
 
@@ -33,20 +33,20 @@ After publication, run in your shell:
 copilot plugin marketplace add liliankasem/html-skills
 copilot plugin marketplace browse html-skills
 copilot plugin install html-artifact@html-skills
-copilot plugin install handoff-guide@html-skills
+copilot plugin install repository-guide@html-skills
 ```
 
 **Install `html-artifact` once**, then install whichever specialists you want. Copilot's documented manifest does not provide equivalent automatic plugin dependency installation; its manifest deliberately has no unsupported `dependencies` field. Keep the foundation enabled alongside your specialists.
 
-Start a new session and ask Copilot to use `handoff-guide`, supplying the relevant inputs and desired output path. The specialist explicitly loads `html-artifact`. Check for existing personal or repository skills with the same name: Copilot gives those precedence over plugin skills, so a stale personal foundation can shadow the marketplace version. Other Copilot surfaces have their own plugin installation interfaces and support; the CLI commands above are not universal commands for every Copilot client.
+Start a new session and ask Copilot to use `repository-guide`, supplying the relevant inputs and desired output path. The specialist explicitly loads `html-artifact`. Check for existing personal or repository skills with the same name: Copilot gives those precedence over plugin skills, so a stale personal foundation can shadow the marketplace version. Other Copilot surfaces have their own plugin installation interfaces and support; the CLI commands above are not universal commands for every Copilot client.
 
 ### Local development
 
 From the repository root, load the shared foundation and a specialist together without registering a marketplace or persisting an installation:
 
 ```sh
-claude --plugin-dir ./plugins/html-artifact --plugin-dir ./plugins/handoff-guide
-copilot --plugin-dir ./plugins/html-artifact --plugin-dir ./plugins/handoff-guide
+claude --plugin-dir ./plugins/html-artifact --plugin-dir ./plugins/repository-guide
+copilot --plugin-dir ./plugins/html-artifact --plugin-dir ./plugins/repository-guide
 ```
 
 To deliberately test marketplace installation locally instead, substitute the checkout's absolute path for `/absolute/path/to/html-skills`:
@@ -54,18 +54,18 @@ To deliberately test marketplace installation locally instead, substitute the ch
 ```sh
 claude plugin marketplace add /absolute/path/to/html-skills
 claude plugin install html-artifact@html-skills
-claude plugin install handoff-guide@html-skills
+claude plugin install repository-guide@html-skills
 
 copilot plugin marketplace add /absolute/path/to/html-skills
 copilot plugin install html-artifact@html-skills
-copilot plugin install handoff-guide@html-skills
+copilot plugin install repository-guide@html-skills
 ```
 
 These add/install commands change client configuration; repository verification does not run them. Do not register a local marketplace over an existing remote marketplace with the same name unless you intend to change its source.
 
 Example request:
 
-> Use handoff-guide to create an offline HTML overview of this repository for a new maintainer. Explain the architecture, build/test workflow, design decisions, and common debugging paths using the current source.
+> Use repository-guide to create an offline HTML overview of this repository for a new maintainer. Explain the architecture, build/test workflow, design decisions, and common debugging paths using the current source.
 
 Each generated plugin has exactly one discoverable skill. Specialists contain domain instructions only. They load the separately installed foundation by its skill identifier (`html-artifact:html-artifact` in Claude Code, `html-artifact` in Copilot), then read its contract and template relative to the foundation skill's actual location supplied by the runtime. They do not assume sibling installation directories or hard-code cache paths. If the foundation cannot be loaded or read, the agent must stop and request installation/enabling rather than invent a fallback or silently fetch files.
 
@@ -89,7 +89,7 @@ The repository does not register or install skills automatically. Inspect instru
 | [pr-walkthrough](skills/pr-walkthrough/SKILL.md) | Explain a real change and guide reviewers through it. |
 | [annotated-code-review](skills/annotated-code-review/SKILL.md) | Attach actionable review findings to actual diff lines. |
 | [code-path-explainer](skills/code-path-explainer/SKILL.md) | Trace a bounded execution path through real source. |
-| [handoff-guide](skills/handoff-guide/SKILL.md) | Explain a whole repository or service for new owners, with architecture, scenarios, operations, and a debugging playbook. |
+| [repository-guide](skills/repository-guide/SKILL.md) | Explain a whole repository or service for new owners, with architecture, scenarios, operations, and a debugging playbook. |
 
 ### Reports, research, and learning
 
@@ -154,7 +154,7 @@ claude plugin validate .
 for plugin in plugins/*; do claude plugin validate "$plugin" || exit 1; done
 ```
 
-Copilot CLI has no `plugin validate` command in the locally inspected version. You can inspect both non-installed plugins with `copilot --plugin-dir ./plugins/html-artifact --plugin-dir ./plugins/handoff-guide plugin list`. A successful list is a loader smoke check, not an end-to-end installation, cross-skill invocation, or generated-artifact evaluation.
+Copilot CLI has no `plugin validate` command in the locally inspected version. You can inspect both non-installed plugins with `copilot --plugin-dir ./plugins/html-artifact --plugin-dir ./plugins/repository-guide plugin list`. A successful list is a loader smoke check, not an end-to-end installation, cross-skill invocation, or generated-artifact evaluation.
 
 These checks do not prove future generated artifacts are correct, establish WCAG conformance, or replace each skill's acceptance checks. They do not register marketplaces, install plugins, exercise remote publication, or apply exported changes.
 
@@ -168,7 +168,7 @@ html-skills/
   .github/plugin/marketplace.json      # Generated Copilot discovery catalog
   skills/                             # Maintained active source, 12 skill directories
     html-artifact/                     # Shared starter, contract, instructions, tests
-    handoff-guide/SKILL.md
+    repository-guide/SKILL.md
     ...10 other specialist directories...
   experimental/
     ux-html-skills/                    # Six deferred skills, not currently packaged
@@ -177,10 +177,10 @@ html-skills/
   scripts/build-marketplace.mjs
   tests/                              # Source catalog and isolated package checks
   plugins/                            # Generated and committed installable output
-    handoff-guide/
+    repository-guide/
       plugin.json                     # Copilot Agent Plugins 1.0 manifest
       .claude-plugin/plugin.json       # Claude manifest with html-artifact dependency
-      skills/handoff-guide/
+      skills/repository-guide/
         SKILL.md                      # Domain work + explicit shared-skill loading
     ...10 other specialist plugins...
     html-artifact/                    # Shared, also independently usable
@@ -203,14 +203,16 @@ If removing or renaming a skill, remove only its corresponding generated plugin 
 
 To adopt a published update deliberately:
 
+The former `handoff-guide` plugin is now `repository-guide`. Existing installations are not renamed automatically; refresh the marketplace and install `repository-guide@html-skills` using the commands above, then disable or uninstall the old plugin through your client.
+
 ```sh
 claude plugin marketplace update html-skills
 claude plugin update html-artifact@html-skills
-claude plugin update handoff-guide@html-skills
+claude plugin update repository-guide@html-skills
 
 copilot plugin marketplace update html-skills
 copilot plugin update html-artifact
-copilot plugin update handoff-guide
+copilot plugin update repository-guide
 ```
 
 Restart the client session afterward. For local `--plugin-dir` development, rebuild and start a fresh session with both plugins loaded. Treat installed files as disposable package contents; keep custom changes in source control rather than editing installed copies. A foundation update ships only in `html-artifact` and affects every specialist that uses it. Claude dependencies currently follow the marketplace version without a version constraint; test all retained specialists together before releasing changes. Never uninstall or disable the foundation while relying on specialists.

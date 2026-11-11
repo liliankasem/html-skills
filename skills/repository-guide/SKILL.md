@@ -1,9 +1,9 @@
 ---
-name: handoff-guide
-description: Write a self-contained HTML handoff or repository overview guide explaining what a project does, why it is built that way, and how to operate and diagnose it. Use when handing a project to another team, onboarding owners, or requesting a project overview, internals guide, ownership document, or handoff doc.
+name: repository-guide
+description: Write a self-contained HTML repository or service guide explaining its architecture, scenarios, operations, and debugging playbook for new owners. Use when onboarding maintainers, handing a project to another team, or requesting a repository overview, internals guide, ownership document, or handoff doc.
 ---
 
-# Handoff Guide
+# Repository Guide
 
 Produce one offline HTML guide for a repository, project, or service. Explain what the system does, why it works that way, and how a new owner can change and diagnose it safely. This is a whole-project orientation, not a feature brief or a walkthrough of one pull request.
 
@@ -13,7 +13,7 @@ Load the shared `html-artifact` skill (`html-artifact:html-artifact` for Claude 
 
 Use the documentation layout and components in the foundation's `assets/artifact.html`; use artifact kind `explainer`. Preserve the white page, fixed desktop sidebar, red section rules, blue subheadings, compact tables, and captioned diagram cards. Replace all example content.
 
-The handoff is read-only by default. Remove the starter's editor, export section, related navigation entries, and both scripts; no JavaScript is needed. Use native disclosures, HTML/CSS diagrams, and inline SVG, never Mermaid or external rendering dependencies. For a script-free printable guide, keep substantive scenario disclosures open in the delivered file.
+The guide is read-only by default. Remove the starter's editor, export section, related navigation entries, and both scripts; no JavaScript is needed. Use native disclosures, HTML/CSS diagrams, and inline SVG, never Mermaid or external rendering dependencies. For a script-free printable guide, keep substantive scenario disclosures open in the delivered file.
 
 ## Inputs
 
@@ -78,4 +78,4 @@ Draw arrows before boxes, use orthogonal elbows, and mask arrow labels with an o
 
 ## Example request
 
-"Write an HTML handoff guide for this repository so a new maintainer can understand its architecture, build and test workflow, design decisions, and common debugging paths. Use the current code as evidence, show what remains unknown, and keep it offline."
+"Write an HTML repository guide so a new maintainer can understand its architecture, scenarios, operations, build and test workflow, design decisions, and common debugging paths. Use the current code as evidence, show what remains unknown, and keep it offline."

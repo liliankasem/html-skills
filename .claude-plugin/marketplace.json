@@ -27,12 +27,6 @@
       "version": "0.2.0"
     },
     {
-      "name": "handoff-guide",
-      "source": "./plugins/handoff-guide",
-      "description": "Write a self-contained HTML handoff or repository overview guide explaining what a project does, why it is built that way, and how to operate and diagnose it. Use when handing a project to another team, onboarding owners, or requesting a project overview, internals guide, ownership document, or handoff doc.",
-      "version": "0.2.0"
-    },
-    {
       "name": "html-artifact",
       "source": "./plugins/html-artifact",
       "description": "Create self-contained, accessible HTML artifacts for plans, code reviews, explainers, reports, prototypes, and purpose-built editing interfaces. Use when the user requests an HTML artifact or when a specialized skill explicitly delegates its presentation and export layer to this foundation.",
@@ -48,6 +42,12 @@
       "name": "pr-walkthrough",
       "source": "./plugins/pr-walkthrough",
       "description": "Create a source-linked HTML companion explaining a pull request to reviewers. Use when the user wants an HTML PR overview, reviewer guide, or visual walkthrough of a change, rather than a defect review.",
+      "version": "0.2.0"
+    },
+    {
+      "name": "repository-guide",
+      "source": "./plugins/repository-guide",
+      "description": "Write a self-contained HTML repository or service guide explaining its architecture, scenarios, operations, and debugging playbook for new owners. Use when onboarding maintainers, handing a project to another team, or requesting a repository overview, internals guide, ownership document, or handoff doc.",
       "version": "0.2.0"
     },
     {

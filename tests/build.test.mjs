@@ -27,7 +27,7 @@ test("generation detects and repairs drift without silently removing obsolete pa
 
     const changed = [
       ".github/plugin/marketplace.json",
-      "plugins/handoff-guide/.claude-plugin/plugin.json",
+      "plugins/repository-guide/.claude-plugin/plugin.json",
       "plugins/html-artifact/skills/html-artifact/assets/artifact.html"
     ];
     const originals = changed.map(path => readFileSync(join(temporary, path)));
@@ -42,7 +42,7 @@ test("generation detects and repairs drift without silently removing obsolete pa
     assert.equal(run("--check").status, 0);
     changed.forEach((path, index) => assert.deepEqual(readFileSync(join(temporary, path)), originals[index]));
 
-    const obsolete = "plugins/handoff-guide/obsolete.txt";
+    const obsolete = "plugins/repository-guide/obsolete.txt";
     writeFileSync(join(temporary, obsolete), "keep until explicitly removed");
     const rebuild = run();
     assert.notEqual(rebuild.status, 0);

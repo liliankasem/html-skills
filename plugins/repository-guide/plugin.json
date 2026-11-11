@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "repository-guide",
+  "version": "0.2.0",
+  "description": "Write a self-contained HTML repository or service guide explaining its architecture, scenarios, operations, and debugging playbook for new owners. Use when onboarding maintainers, handing a project to another team, or requesting a repository overview, internals guide, ownership document, or handoff doc.",
+  "author": {
+    "name": "liliankasem"
+  },
+  "repository": "https://github.com/liliankasem/html-skills"
+}
