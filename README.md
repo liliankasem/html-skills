@@ -111,16 +111,16 @@ Every row is separately selectable as `<skill-name>@html-skills`. Specialists re
 
 ## Deferred UI/UX skills
 
-These six skills are preserved under `ux-html-skills/` for later review, not deleted. They are excluded from both marketplace catalogs and generated `plugins/`, so the install commands above do not apply to them.
+These six skills are preserved under `experimental/ux-html-skills/` for later review, not deleted. They are excluded from both marketplace catalogs and generated `plugins/`, so the install commands above do not apply to them.
 
 | Skill | Purpose |
 | --- | --- |
-| [design-explorer](ux-html-skills/design-explorer/SKILL.md) | Compare distinct visual directions for the same user task. |
-| [design-token-preview](ux-html-skills/design-token-preview/SKILL.md) | Render resolved tokens, themes, and intended usage. |
-| [component-tuner](ux-html-skills/component-tuner/SKILL.md) | Tune component parameters and export exact values. |
-| [component-gallery](ux-html-skills/component-gallery/SKILL.md) | Catalog component variants, states, and coverage gaps. |
-| [animation-playground](ux-html-skills/animation-playground/SKILL.md) | Tune motion with replay, stop/reset, and parameter export. |
-| [visual-parameter-picker](ux-html-skills/visual-parameter-picker/SKILL.md) | Select difficult-to-describe values with domain-specific validation. |
+| [design-explorer](experimental/ux-html-skills/design-explorer/SKILL.md) | Compare distinct visual directions for the same user task. |
+| [design-token-preview](experimental/ux-html-skills/design-token-preview/SKILL.md) | Render resolved tokens, themes, and intended usage. |
+| [component-tuner](experimental/ux-html-skills/component-tuner/SKILL.md) | Tune component parameters and export exact values. |
+| [component-gallery](experimental/ux-html-skills/component-gallery/SKILL.md) | Catalog component variants, states, and coverage gaps. |
+| [animation-playground](experimental/ux-html-skills/animation-playground/SKILL.md) | Tune motion with replay, stop/reset, and parameter export. |
+| [visual-parameter-picker](experimental/ux-html-skills/visual-parameter-picker/SKILL.md) | Select difficult-to-describe values with domain-specific validation. |
 
 They use the same explicit shared-skill composition instructions as active specialists. To reactivate one, move its directory back to `skills/`, update this catalog and the active/deferred expectations in `tests/catalog.test.mjs`, then rebuild and verify. No foundation path rewriting is needed.
 
@@ -170,9 +170,10 @@ html-skills/
     html-artifact/                     # Shared starter, contract, instructions, tests
     handoff-guide/SKILL.md
     ...10 other specialist directories...
-  ux-html-skills/                      # Six deferred skills, not currently packaged
-    component-tuner/SKILL.md
-    ...five other deferred directories...
+  experimental/
+    ux-html-skills/                    # Six deferred skills, not currently packaged
+      component-tuner/SKILL.md
+      ...five other deferred directories...
   scripts/build-marketplace.mjs
   tests/                              # Source catalog and isolated package checks
   plugins/                            # Generated and committed installable output
@@ -196,7 +197,7 @@ Copilot's root manifest explicitly targets the canonical Agent Plugins 1.0 schem
 
 ## Maintenance and safe updates
 
-Edit `skills/` and `marketplace.config.json`, not generated `plugins/` or catalogs; deferred work lives in `ux-html-skills/`. Preserve domain instructions when changing packaging. Bump `version` in the config for a release, run `npm run build` and `npm run verify`, review the shared foundation and all affected specialist instructions, and commit source and generated output together. The current package version is `0.2.0`; it is not a claim that a release has been published.
+Edit `skills/` and `marketplace.config.json`, not generated `plugins/` or catalogs; deferred work lives in `experimental/ux-html-skills/`. Preserve domain instructions when changing packaging. Bump `version` in the config for a release, run `npm run build` and `npm run verify`, review the shared foundation and all affected specialist instructions, and commit source and generated output together. The current package version is `0.2.0`; it is not a claim that a release has been published.
 
 If removing or renaming a skill, remove only its corresponding generated plugin directory explicitly before rebuilding; the generator reports obsolete files instead of deleting them automatically. Keep marketplace and plugin names stable because installations refer to those identifiers.
 

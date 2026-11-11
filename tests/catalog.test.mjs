@@ -14,7 +14,8 @@ const expected = [
 ];
 const deferred = ["design-explorer", "design-token-preview", "component-tuner", "component-gallery", "animation-playground", "visual-parameter-picker"];
 const removed = ["incident-report", "prioritization-board", "constrained-config-editor", "prompt-template-lab", "dataset-curator", "annotation-workbench", "artifact-inventory"];
-const directory = name => resolve(repo, deferred.includes(name) ? "ux-html-skills" : "skills", name);
+const deferredRoot = resolve(repo, "experimental", "ux-html-skills");
+const directory = name => resolve(deferred.includes(name) ? deferredRoot : root, name);
 const read = name => readFileSync(resolve(directory(name), "SKILL.md"), "utf8");
 const readme = readFileSync(resolve(repo, "README.md"), "utf8");
 const discovered = readdirSync(root, { withFileTypes: true })
@@ -25,7 +26,8 @@ test("catalog includes 11 active specialists, shared foundation, and six deferre
   assert.equal(expected.length, 11);
   assert.equal(deferred.length, 6);
   assert.deepEqual(discovered.sort(), [...expected, "html-artifact"].sort());
-  assert.deepEqual(readdirSync(resolve(repo, "ux-html-skills")).sort(), [...deferred].sort());
+  assert.deepEqual(readdirSync(deferredRoot).sort(), [...deferred].sort());
+  assert.ok(!existsSync(resolve(repo, "ux-html-skills")), "Deferred skills must live under experimental");
   assert.ok(!existsSync(resolve(repo, "ui")), "Old deferred directory must be removed");
 });
 
@@ -68,7 +70,7 @@ test("README catalogs every skill once and all local links resolve", () => {
     assert.equal(readme.split(`](skills/${name}/SKILL.md)`).length - 1, 1, `Catalog entry: ${name}`);
   }
   for (const name of deferred) {
-    assert.equal(readme.split(`](ux-html-skills/${name}/SKILL.md)`).length - 1, 1, `Deferred entry: ${name}`);
+    assert.equal(readme.split(`](experimental/ux-html-skills/${name}/SKILL.md)`).length - 1, 1, `Deferred entry: ${name}`);
   }
   for (const match of readme.matchAll(/\]\(([^)]+)\)/g)) {
     if (/^https:\/\//.test(match[1])) continue;
@@ -87,7 +89,7 @@ test("deferred skills are preserved outside both active catalogs and generated p
       assert.ok(!existsSync(resolve(root, name)), `Inactive skill still in active source: ${name}`);
     }
     for (const name of removed) {
-      assert.ok(!existsSync(resolve(repo, "ux-html-skills", name)), `Deleted skill preserved unexpectedly: ${name}`);
+      assert.ok(!existsSync(resolve(deferredRoot, name)), `Deleted skill preserved unexpectedly: ${name}`);
     }
   }
 });
