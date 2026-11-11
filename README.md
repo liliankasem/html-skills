@@ -40,6 +40,28 @@ copilot plugin install repository-guide@html-skills
 
 Start a new session and ask Copilot to use `repository-guide`, supplying the relevant inputs and desired output path. The specialist explicitly loads `html-artifact`. Check for existing personal or repository skills with the same name: Copilot gives those precedence over plugin skills, so a stale personal foundation can shadow the marketplace version. Other Copilot surfaces have their own plugin installation interfaces and support; the CLI commands above are not universal commands for every Copilot client.
 
+### npx skills (direct skill installation)
+
+Alternatively, use the third-party [`skills` CLI](https://github.com/vercel-labs/skills) to install skills directly, without registering a plugin marketplace. Its install command is `npx skills add`. These examples target the active `skills/` source directory, not generated plugins or experimental skills.
+
+Run from the project where you want the skills:
+
+```sh
+# GitHub Copilot
+npx skills add https://github.com/liliankasem/html-skills/tree/template/skills \
+  --skill html-artifact repository-guide --agent github-copilot
+
+# Claude Code
+npx skills add https://github.com/liliankasem/html-skills/tree/template/skills \
+  --skill html-artifact repository-guide --agent claude-code
+```
+
+Add `--global` for a user-wide installation instead of a project-local one. Replace `repository-guide` with another active specialist, keeping `html-artifact` installed once for that agent and scope. Direct skill installation does not process Claude plugin dependencies, so explicitly select the foundation even for Claude Code.
+
+Restart your agent and ask it to use `repository-guide`. Direct installations use plain skill names, including `html-artifact`, not plugin-qualified names such as `repository-guide:repository-guide`.
+
+Manage these installations with `npx skills list`, `npx skills update html-artifact repository-guide`, and `npx skills remove html-artifact repository-guide`, adding `--global` when appropriate. Keep the foundation if other installed specialists still need it. Choose either direct skills or plugins for the same skill and agent; existing personal or repository copies can shadow plugin versions.
+
 ### Local development
 
 From the repository root, load the shared foundation and a specialist together without registering a marketplace or persisting an installation:
