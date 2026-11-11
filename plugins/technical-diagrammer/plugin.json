@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "technical-diagrammer",
+  "version": "0.1.0",
+  "description": "Produce accessible SVG technical diagrams embedded in a self-contained HTML artifact. Use when the user wants architecture, sequence, workflow, or state diagrams grounded in supplied evidence.",
+  "author": {
+    "name": "liliankasem"
+  },
+  "repository": "https://github.com/liliankasem/html-skills"
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "dataset-curator",
+  "version": "0.1.0",
+  "description": "Build an offline HTML interface for approving, rejecting, tagging, and selecting dataset examples with auditable export. Use when the user wants to curate a concrete dataset through a purpose-built review UI.",
+  "author": {
+    "name": "liliankasem"
+  },
+  "repository": "https://github.com/liliankasem/html-skills"
+}

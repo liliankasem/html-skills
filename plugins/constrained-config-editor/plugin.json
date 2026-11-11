@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "constrained-config-editor",
+  "version": "0.1.0",
+  "description": "Build an HTML form for editing structured configuration with schema validation, dependency checks, and changed-value export. Use when the user wants a safe visual editor for feature flags or JSON/YAML configuration.",
+  "author": {
+    "name": "liliankasem"
+  },
+  "repository": "https://github.com/liliankasem/html-skills"
+}

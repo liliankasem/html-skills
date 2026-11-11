@@ -1,0 +1,12 @@
+{
+  "name": "html-skills-marketplace",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build-marketplace.mjs",
+    "test": "node --test tests/*.test.mjs skills/html-artifact/tests/artifact.test.mjs",
+    "verify": "node scripts/build-marketplace.mjs --check && npm test"
+  }
+}

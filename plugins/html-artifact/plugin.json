@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "html-artifact",
+  "version": "0.1.0",
+  "description": "Create self-contained, accessible HTML artifacts for plans, code reviews, explainers, reports, prototypes, and purpose-built editing interfaces. Use when the user requests an HTML artifact or when a specialized skill explicitly delegates its presentation and export layer to this foundation.",
+  "author": {
+    "name": "liliankasem"
+  },
+  "repository": "https://github.com/liliankasem/html-skills"
+}

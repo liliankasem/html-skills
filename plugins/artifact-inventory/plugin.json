@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "artifact-inventory",
+  "version": "0.1.0",
+  "description": "Catalog and categorize an authorized collection of generated artifacts in a searchable HTML inventory. Use when the user wants to discover recurring artifact types, inspect coverage, or browse existing HTML outputs.",
+  "author": {
+    "name": "liliankasem"
+  },
+  "repository": "https://github.com/liliankasem/html-skills"
+}

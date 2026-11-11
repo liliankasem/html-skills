@@ -1,0 +1,9 @@
+{
+  "name": "pr-walkthrough",
+  "version": "0.1.0",
+  "description": "Create a source-linked HTML companion explaining a pull request to reviewers. Use when the user wants an HTML PR overview, reviewer guide, or visual walkthrough of a change, rather than a defect review.",
+  "author": {
+    "name": "liliankasem"
+  },
+  "repository": "https://github.com/liliankasem/html-skills"
+}

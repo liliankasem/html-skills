@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "prioritization-board",
+  "version": "0.1.0",
+  "description": "Build an HTML board for reordering and bucketing tickets, test cases, or feedback with structured export. Use when the user wants to prioritize a concrete collection interactively without changing the source tracker.",
+  "author": {
+    "name": "liliankasem"
+  },
+  "repository": "https://github.com/liliankasem/html-skills"
+}

@@ -1,0 +1,9 @@
+{
+  "name": "annotated-code-review",
+  "version": "0.1.0",
+  "description": "Render an evidence-backed code review as an HTML diff with line-anchored findings and severity labels. Use when the user specifically wants an annotated HTML PR review or interactive diff review artifact.",
+  "author": {
+    "name": "liliankasem"
+  },
+  "repository": "https://github.com/liliankasem/html-skills"
+}

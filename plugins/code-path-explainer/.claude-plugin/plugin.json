@@ -1,0 +1,9 @@
+{
+  "name": "code-path-explainer",
+  "version": "0.1.0",
+  "description": "Trace a concrete behavior through source code and produce an annotated HTML execution-path explainer. Use when the user wants to understand how a specific code path works, with real snippets and source-linked flow diagrams.",
+  "author": {
+    "name": "liliankasem"
+  },
+  "repository": "https://github.com/liliankasem/html-skills"
+}

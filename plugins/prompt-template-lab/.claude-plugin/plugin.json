@@ -1,0 +1,9 @@
+{
+  "name": "prompt-template-lab",
+  "version": "0.1.0",
+  "description": "Create an HTML prompt or text-template editor with highlighted variables, live sample previews, and export. Use when the user wants to tune a prompt or template against concrete examples without live model calls.",
+  "author": {
+    "name": "liliankasem"
+  },
+  "repository": "https://github.com/liliankasem/html-skills"
+}
